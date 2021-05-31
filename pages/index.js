@@ -11,7 +11,7 @@ export default function Home() {
       },
       body: JSON.stringify({
       arl: "non",
-      track: trackValue
+      track: "https://www.deezer.com/en/track/75859862"
       }),
     })
     .then((res) => res.json())
