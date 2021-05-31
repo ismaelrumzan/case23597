@@ -4,21 +4,20 @@ import React from 'react'
 export default function Home() {
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('api/data', {
-      method: 'POST',
-      headers: {
-      'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-      arl: "c610a21568c03931baf2d3e09bac75dc40a7bdd8adade7f881a25c0c15ec714acf4dae21d53387d6b5ec0b72e85cc15af63f586b065939a13407e0e243208b5a4fc83924d5c633f43fc76a68e255f4bff2e637d3b7ee1a42cdb9c2d3495f7892",
-      track: "https://www.deezer.com/en/track/75859862"
-      }),
-    })
-    .then((res) => res.json())
-    .then((userData) => {
-      console.log(userData);
-      // do something with the data
-    })
+    fetch('api/file', {
+			method: 'POST',
+			body: JSON.stringify({
+				turl: "https://e-cdns-proxy-a.dzcdn.net/mobile/1/261e5e207714174212fc6dcfb1f355d910717451e447191827f82235e60c672abc3df997fbe8e18fb43c3901ac7aea16705405e69f9a5d823d8e059dc826d6dd2fd0c2384c93e33f267af1cffba07db8"
+			}),
+			headers: {
+				'content-type': 'application/json',
+			}
+		})
+		.then((res) => res.arrayBuffer())
+		.then((userData) => {
+			console.log("done");
+      //do something here 
+		})
   }
   return (
     <form onSubmit={handleSubmit}>
