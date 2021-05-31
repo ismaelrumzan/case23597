@@ -1,5 +1,5 @@
 const Cors = require('cors')
-
+const axios = require('axios')
 // Initializing the cors middleware
 const cors = Cors({
   methods: ['POST'],
@@ -18,32 +18,22 @@ function runMiddleware(req, res, fn) {
     })
   })
 }
-
 export default async (req, res) => {
   await runMiddleware(req, res, cors)
   if (req.method === 'POST') {
-    const arl = req.body.arl
-    const track = req.body.track
-
-    
+    const turl = req.body.turl
       // 4
-      var myHeaders = new Headers({
-        'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
-        'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-        'Accept-Language' : 'en-US,en;q=0.5',
-        'Connection' : 'keep-alive',
-        'Upgrade-Insecure-Requests' : '1',
-        'Cache-Control' : 'max-age=0',
-        'TE' : 'Trailers'
-      });
-      const response = await fetch(track, {
-        headers: myHeaders
-      })
-      const htmlString = await response.text()
 
-      return res.json({
-        htmlString
+    const response = await axios.request({
+        responseType: 'arraybuffer',
+        followAllRedirects: true,
+        url: turl+'.flac',
+        method: 'get',
+      }).then((result) => {
+        return result;
       })
+        .catch(err => console.log("err"));
+      return res.send(response.data);
     
   }
 }
